@@ -25,4 +25,10 @@ urlpatterns = [
 
 	# /music/album/702/favourite
 	path('album/<int:album_id>/favourite',views.favourite, name='favourite'),
+
+	# /music/logIn/
+	path('logIn', views.logIn, name="logIn"),
+
+	# /music/register/
+	path('register', views.register, name="register"),
 ]
