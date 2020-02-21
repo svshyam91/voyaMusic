@@ -1,0 +1,11 @@
+<html>
+	<head><title>{{artist.name}}</title></head>
+	<body>
+	<h1>{{artist.name}}: {{artist.description}}</h1>
+	<ul>
+		{%for album in artist.album_set.all%}
+			<li><a href="/music/album/{{album.id}}" style: "color: blue">{{album.name}}</a>
+		{%endfor%}
+	</ul>
+	</body>
+</html>

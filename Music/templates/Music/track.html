@@ -1,0 +1,24 @@
+{% extends 'Music/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+	<div class="jumbotron">
+		<table class="table table-hover table-borderless">
+			<tr>
+				<th>ALL SONGS</th>
+			</tr>
+			{% for track in tracks %}
+				<tr>
+					<td style="height: 150px; width: 150px;" class="responsive"><img src="{% static track.image_path %}" style="max-width: 100%; display: block;"></td>
+					<td>{{ track.name }}</td>
+					<td>{{ track.play_time }}</td>
+					<td>
+						<audio controls>
+							<source src="{% static track.file_path %}" type="audio/mpeg">
+						</audio>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}

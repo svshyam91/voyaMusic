@@ -1,0 +1,40 @@
+{% extends 'Music/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+	<!-- IF Error occurs while subm	itting form -->
+	{% if error_message %}
+		<p><strong>{{ error_message }}</strong></p>
+	{% endif %}
+
+	<div class="jumbotron">
+		<div class="row">
+			<div class="col">
+				<h2>{{album.name}}</h2>
+				<img src="{% static album.picture %}" class="img-thumbnail">
+			</div>
+			<div class="col">
+				<h2>All Songs</h2>
+				<form action="{% url 'Music:favourite' album.id %}" method="post">
+					{% csrf_token %}
+					{% for track in album.tracks_set.all %}
+					<input type="checkbox" name="track" id="track{{ forloop.counter }}" value="{{ track.id }}">
+					<label for="track{{ forloop.counter }}">
+						{{ track.name }}
+						{% if track.is_favourite %}
+								<i class="far fa-thumbs-up"></i>
+						{% endif %}
+					</label>
+					<br>
+					{% endfor %}
+					<input type="submit" name="submit" value="Favourite" class="btn btn-success"></ins>
+				</form>
+			</div>
+		</div>	
+	</div>
+{% endblock %}
+			<!-- <ul>
+				{% for track in album.tracks_set.all %}
+					<li><a href="{% url 'Music:track' track.id%}">{{track.name}}</a>
+				{% endfor %}
+			</ul> -->			
