@@ -2,7 +2,7 @@ from django import forms
 
 
 class Account(forms.Form):
-    firstname = forms.CharField(label="Fist Name", max_length=50)
+    firstname = forms.CharField(label="First Name", max_length=50)
     lastname = forms.CharField(label="Last Name", max_length=50)
     email = forms.EmailField(label="Email", max_length=50)
     username = forms.CharField(label="Username", max_length=20)
