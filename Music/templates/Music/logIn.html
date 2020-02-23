@@ -7,6 +7,9 @@
 		<img src="{% static 'Music/images/register_page.jpg' %}" height="500px" width="100%">
 	</div>
 	<div class="col-sm-8">
+		{% if error_message %}
+			<button class="btn btn-danger">{{ error_message }}</button>
+		{% endif %}
 		<form method="post" action="{% url 'Music:logIn'%}">
 			{% csrf_token %}
 			<table style="margin: auto;" class="table table-striped">
