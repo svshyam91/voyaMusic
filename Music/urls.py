@@ -29,6 +29,9 @@ urlpatterns = [
 	# /music/logIn/
 	path('logIn', views.logIn, name="logIn"),
 
+	# /music/logOut
+	path('logOut', views.logOut, name="logOut"),
+
 	# /music/register/
 	path('register', views.register, name="register"),
 ]
