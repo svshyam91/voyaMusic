@@ -129,3 +129,8 @@ def logIn(request):
         loginForm = Login()
 
     return render(request, "Music/logIn.html", {"loginForm": loginForm})
+
+
+def logOut(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("Music:index"))
