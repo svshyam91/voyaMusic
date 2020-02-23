@@ -57,7 +57,7 @@
 					</li> -->
 					{% if user.is_authenticated %}
 						<li class="nav-item"> 
-							<a href="{% url 'Music:logIn' %}" class="nav-link"><i class="fas fa-user-alt"></i>&nbsp;{{ user.username }}</a>
+							<a href="{% url 'Music:profile' %}" class="nav-link"><i class="fas fa-user-alt"></i>&nbsp;{{ user.username }}</a>
 						</li>
 						<li class="nav-item"> 
 							<a href="{% url 'Music:logOut' %}" class="nav-link"><i class="fas fa-power-off"></i>&nbsp;LOGOUT</a>
