@@ -34,4 +34,7 @@ urlpatterns = [
 
 	# /music/register/
 	path('register', views.register, name="register"),
+
+	# /music/profile/
+	path('profile', views.profile, name="profile"),
 ]
