@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Artist, Album, Tracks, Register
 from django.http import Http404
@@ -103,27 +103,33 @@ def register(request):
 
             # Creating user
             user = User.objects.create_user(
-                username=username, password=password, 
+                username=username, password=password,
                 first_name=firstname, last_name=lastname, email=email)
             user.save()
 
             return HttpResponseRedirect(reverse("Music:index"))
 
     else:
-    	registerForm = Account()
+        registerForm = Account()
 
     return render(request, "Music/register.html", {"registerForm": registerForm})
 
 # /music/logIn
+
+
 def logIn(request):
     if request.method == "POST":
-        loginForm = Login(request.POST)		# Bound Form
+        loginForm = Login(request.POST)     # Bound Form
         if loginForm.is_valid():
             username = loginForm.cleaned_data["username"]
             password = loginForm.cleaned_data["password"]
             user = authenticate(username=username, password=password)
-            login(request, user)
-            return HttpResponseRedirect(request.path_info)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(reverse("Music:index"))
+            else:
+                return render(request, "Music/logIn.html", 
+                    {"loginForm": loginForm, "error_message":"Invalid Login"})
     else:
         # Unbound form
         loginForm = Login()
@@ -134,3 +140,11 @@ def logIn(request):
 def logOut(request):
     logout(request)
     return HttpResponseRedirect(reverse("Music:index"))
+
+
+# /music/profile
+def profile(request):
+    if request.user.is_authenticated:
+        return render(request, "Music/profile.html", {"username": request.user.get_username()})
+    else:
+        return HttpResponseRedirect(reverse("Music:logIn"))
