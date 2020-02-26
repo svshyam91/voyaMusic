@@ -16,7 +16,7 @@ class Album(models.Model):
     name = models.CharField(max_length=200)
     release_date = models.DateField()
     # picture = models.FileField(max_length=1000, default="Music/images/")
-    albumImage = models.FileField(upload_to="albumImages/", default="abc.jpg")
+    albumImage = models.FileField(upload_to="images/albumImages/", default="abc.jpg")
 
     def __str__(self):
         ret_str = "\n\nName:" + self.name + "\nRelease Date: " + \
