@@ -6,7 +6,7 @@
 		{% for album in albums %}
 			<div class="col-sm-4">
 				<a href="{% url 'Music:album_details' album.id %}">
-				<img src="{% static album.picture %}" style="width=100%" class="img-thumbnail"><br>
+				<img src="{{ album.albumImage.url }}" class="img-thumbnail"><br>
 				<div class="caption">
 					<p class="">{{ album.name }}</p>
 				</div>
