@@ -16,3 +16,9 @@ class Login(forms.Form):
     username = forms.CharField(label="Username", max_length=50)
     password = forms.CharField(
         label="Password", max_length=30, widget=forms.PasswordInput)
+
+
+class AddAlbum(forms.Form):
+    albumName = forms.CharField(label="Album Name:", max_length=100)
+    releaseYear = forms.DateField(label="Release Year:")
+    albumPicture = forms.FileField()
