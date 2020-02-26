@@ -15,11 +15,12 @@ class Album(models.Model):
     artist_id = models.ForeignKey('Artist', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     release_date = models.DateField()
-    picture = models.CharField(max_length=1000, default="Music/images/")
+    # picture = models.FileField(max_length=1000, default="Music/images/")
+    albumImage = models.FileField(upload_to="albumImages/", default="abc.jpg")
 
     def __str__(self):
         ret_str = "\n\nName:" + self.name + "\nRelease Date: " + \
-            str(self.release_date) + "\nPicture: " + self.picture
+            str(self.release_date)
         return ret_str
 
 
