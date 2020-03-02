@@ -66,8 +66,9 @@ def favourite(request, album_id):
         # Get the selected track of album.id. If present in DB then proceed
         selected_track = album.tracks_set.get(id=request.POST['track'])
     except (KeyError, Tracks.DoesNotExist):
-        return render(request, "Music/album_details.html", {"album": album,
-                                        "error_message": "You didn't select a valid track."})
+        return render(request, "Music/album_details.html", {
+            "album": album,
+            "error_message": "You didn't select a valid track."})
     else:
         if selected_track.is_favourite:
             selected_track.is_favourite = False
@@ -114,9 +115,8 @@ def register(request):
 
     return render(request, "Music/register.html", {"registerForm": registerForm})
 
+
 # /music/logIn
-
-
 def logIn(request):
     if request.method == "POST":
         loginForm = Login(request.POST)     # Bound Form
@@ -128,8 +128,8 @@ def logIn(request):
                 login(request, user)
                 return HttpResponseRedirect(reverse("Music:index"))
             else:
-                return render(request, "Music/logIn.html", 
-                    {"loginForm": loginForm, "error_message":"Invalid Login"})
+                return render(request, "Music/logIn.html", {
+                    "loginForm": loginForm, "error_message":"Invalid Login"})
     else:
         # Unbound form
         loginForm = Login()
@@ -145,30 +145,40 @@ def logOut(request):
 # /music/profile
 def profile(request):
     if request.user.is_authenticated:
+
+        # For showing user profile
+        account = Register.objects.get(username=request.user.get_username())
+
+        # For showing all artists
+        artists = Artist.objects.all()
+
+        # For adding album
         if request.method == "POST":
             albumForm = AddAlbum(request.POST, request.FILES)      # Bound Form
             if albumForm.is_valid():
+                artistId = request.POST.get("artistId")
                 albumName = albumForm.cleaned_data["albumName"]
                 releaseYear = albumForm.cleaned_data["releaseYear"]
                 albumImage = request.FILES["albumPicture"]
 
                 # Storing album in database
-                artist = Artist.objects.get(id=1)
-                album = Album()
-                album.artist_id = artist
-                album.name = albumName
-                album.release_date = releaseYear
-                album.albumImage = albumImage
+                artist = Artist.objects.get(id=artistId)
+                album = Album(artist_id=artist,
+                    name=albumName, release_date=releaseYear, 
+                    albumImage=albumImage)
                 album.save()
 
                 return render(request, "Music/profile.html", {
                     "username": request.user.get_username(),
-                    "album": album })
+                    "account": account })
         else:
             # Unbound Form
             albumForm = AddAlbum()
 
-        return render(request, "Music/profile.html", {"username": request.user.get_username(), 
-            "albumForm": albumForm})
+        return render(request, "Music/profile.html", {
+            "username": request.user.get_username(), 
+            "albumForm": albumForm, 
+            "artists": artists,
+            "account": account})
     else:
         return HttpResponseRedirect(reverse("Music:logIn"))
