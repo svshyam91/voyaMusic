@@ -14,9 +14,10 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'Music/style.css' %}">
 	</head>
 
-<body>
-	<div class="container-fluid">
-		<nav class="navbar-nav navbar-expand-md bg-dark">
+<body class="container-fluid">
+	{% block content%} {% endblock %}
+	<div class="">
+		<nav class="navbar-nav sticky-top navbar-expand-sm bg-dark">
 
 			<!-- Brand -->
 			<a class="navbar-brand" href="{% url 'Music:index' %}">VOYA MUSIC</a>
@@ -41,15 +42,12 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav ml-auto">
-					
-					<!-- Search Bar -->
-					<li>
-						<form method="get" action="#" class="form-inline">
-							<input type="text" name="q" class="form-control mr-sm-2 border-primary" placeholder="Search">
-							<button type="submit" class="btn btn-outline-primary" >Search</button> 
-						</form>
-					</li>
 
+					<!-- Search Bar -->
+					<form method="get" action="#" class="form-inline">
+						<input type="text" name="q" class="form-control btn-sm mr-sm-2 border-primary" placeholder="Search">
+						<button type="submit" class="btn btn-sm btn-outline-primary" >Search</button> 
+					</form>
 
 					{% if user.is_authenticated %}
 						<li class="nav-item"> 
@@ -69,8 +67,17 @@
 				</ul>
 			</div>				
 		</nav>	
-		{% block body %}
-		{% endblock%}
+<!-- 		<div class="row" id="form">
+			<div class="col-sm-3"></div>
+				<div class="col-sm mt-4 mb-4">
+				
+				</div>
+			<div class="col-sm-3"></div>
+		</div>
+		<div class="p-3 border-top border-1 border-dark"> -->
+			{% block body %}
+			{% endblock%}
+		</div>
 	</div>
 </body>
 </html>
