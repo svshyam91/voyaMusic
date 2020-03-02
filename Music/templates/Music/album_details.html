@@ -9,16 +9,16 @@
 
 	<div class="jumbotron">
 		<div class="row">
-			<div class="col">
+			<div class="col-sm">
 				<h2>{{album.name}}</h2>
-				<img src="{% static album.picture %}" class="img-thumbnail">
+				<img src="{{ album.albumImage.url }}" class="img-fluid rounded" alt="{{album.name}}">
 			</div>
-			<div class="col">
+			<div class="col mt-5">
 				<h2>All Songs</h2>
 				<form action="{% url 'Music:favourite' album.id %}" method="post">
 					{% csrf_token %}
 					{% for track in album.tracks_set.all %}
-					<input type="checkbox" name="track" id="track{{ forloop.counter }}" value="{{ track.id }}">
+					<input type="radio" name="track" id="track{{ forloop.counter }}" value="{{ track.id }}">
 					<label for="track{{ forloop.counter }}">
 						{{ track.name }}
 						{% if track.is_favourite %}
