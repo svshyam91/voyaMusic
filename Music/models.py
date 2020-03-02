@@ -8,19 +8,17 @@ class Artist(models.Model):
     picture = models.CharField(max_length=1000, default="Music/images/")
 
     def __str__(self):
-        return self.name + ":" + self.description
+        return self.name
 
 
 class Album(models.Model):
     artist_id = models.ForeignKey('Artist', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     release_date = models.DateField()
-    # picture = models.FileField(max_length=1000, default="Music/images/")
     albumImage = models.FileField(upload_to="images/albumImages/", default="abc.jpg")
 
     def __str__(self):
-        ret_str = "\n\nName:" + self.name + "\nRelease Date: " + \
-            str(self.release_date)
+        ret_str = "\n\nName:" + self.name
         return ret_str
 
 
@@ -34,7 +32,7 @@ class Tracks(models.Model):
     is_favourite = models.BooleanField(default="False")
 
     def __str__(self):
-        return self.name + " " + str(self.play_time)
+        return self.name
 
 
 class Register(models.Model):
