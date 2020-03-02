@@ -2,14 +2,36 @@
 {% load staticfiles %}
 
 {% block body %}
-	<p>Hello! {{ username }}</p>
-	<form method="post" action="{% url 'Music:profile'%}" enctype="multipart/form-data">
-		{% csrf_token %}
-		<table class="table table-striped">
-			{{ albumForm.as_table }}
-		</table>
-		<input type="submit" name="submit" value="ADD ALBUM" class="btn btn-success">
-	</form>
+	<div class="jumbotron"> <h1>Hello! {{ username }}</h1> </div>
+	<div class="row">
+		<div class="col-sm-6">
+			<form method="post" action="{% url 'Music:profile'%}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<table class="table table-striped">
+					<tr>
+						<th><label for="artist">Select Artist:</label></th>
+						<td><select name="artistId" id="artist">
+							<option value="">Select</option>
+							{% for artist in artists %}
+							<option value="{{artist.id}}">{{artist.name}}</option>
+							{% endfor %}
+						</select></td>
+					</tr>
+					{{ albumForm.as_table }}
+				</table>
+				<input type="submit" name="submit" value="ADD ALBUM" class="btn btn-success">
+			</form>
+		</div>
+		<div class="col-sm-6">
+			<h3>Your Details:</h3>
+			<table class="table table-striped">
+				<tr><th>Name:</th><td>{{account.first_name.title}} {{account.last_name.title}}</td></tr>
+				<tr><th>Email:</th><td>{{account.email}}</td></tr>
+				<tr><th>Mobile Number:</th><td>{{account.mobile_number}}</td></tr>
+				<tr><th>Age:</th><td>{{account.age}}</td></tr>
+			</table>
+		</div>
+	</div>
 	<p>{{ album.name }}</p>
 	<p>{{ album.release }}</p>
 	<!-- <button class="btn btn-success"><a href="#">ADD ALBUM</a></button> -->
