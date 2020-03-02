@@ -123,3 +123,7 @@ STATIC_URL = '/static/'
 # For uploading images
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# For Google Captcha 
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Ldx690UAAAAANUuYmLGpYpjZm48hQg0LwkUuSU8'
+# COPY_SITE_KEY = '6Ldx690UAAAAAAnYKUIp3hIw05GuyCN38bvBZe6z'
