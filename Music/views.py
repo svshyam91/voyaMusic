@@ -5,7 +5,7 @@ from django.http import Http404
 from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
-from .forms import Account, Login, AddAlbum
+from .forms import Account, Login, AddAlbum, AddArtist
 #from django.template import loader
 
 
@@ -174,11 +174,36 @@ def profile(request):
         else:
             # Unbound Form
             albumForm = AddAlbum()
+        # End of adding album
+
+        # Adding Artist
+        if request.method == "POST":
+            artistForm = AddArtist(request.POST, request.FILES)     # Bound Form
+            if artistForm.is_valid():
+                artistName = artistForm.cleaned_data["artistName"]
+                artistDescrip = artistForm.cleaned_data["artistDescrip"]
+                artistPicture = request.FILES["artistPicture"]
+
+                # Storing artist in Database
+                newArtist = Artist(name=artistName, 
+                    description=artistDescrip, picture=artistPicture)
+                newArtist.save()
+
+                return render(request, "Music/profile.html", {
+                    "username": request.user.get_username(),
+                    "account": account,
+                    })
+        else:
+            artistForm = AddArtist()        # Unbound Form
+
+        # End of adding Artist
+
 
         return render(request, "Music/profile.html", {
             "username": request.user.get_username(), 
             "albumForm": albumForm, 
             "artists": artists,
-            "account": account})
+            "account": account,
+            "artistForm": artistForm,})
     else:
         return HttpResponseRedirect(reverse("Music:logIn"))
