@@ -4,7 +4,6 @@ from django.db import models
 class Artist(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=500)
-    year = models.DateField()
     picture = models.CharField(max_length=1000, default="Music/images/")
 
     def __str__(self):
