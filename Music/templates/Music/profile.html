@@ -5,6 +5,8 @@
 	<div class="jumbotron"> <h1>Hello! {{ username }}</h1> </div>
 	<div class="row">
 		<div class="col-sm-6">
+
+			<!-- Add Album -->
 			<form method="post" action="{% url 'Music:profile'%}" enctype="multipart/form-data">
 				{% csrf_token %}
 				<table class="table table-striped">
@@ -21,9 +23,21 @@
 				</table>
 				<input type="submit" name="submit" value="ADD ALBUM" class="btn btn-success">
 			</form>
+
+			<!-- Add Artist -->
+			<form method="post" action="{% url 'Music:profile' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<table class="table table-striped">
+					{{ artistForm.as_table }}
+				</table>
+				<input type="submit" name="submit" value="ADD ARTIST" class="btn btn-success">
+			</form>
+
 		</div>
+
+		<!-- Profile -->
 		<div class="col-sm-6">
-			<h3>Your Details:</h3>
+			<h3>YOUR DETAILS:</h3>
 			<table class="table table-striped">
 				<tr><th>Name:</th><td>{{account.first_name.title}} {{account.last_name.title}}</td></tr>
 				<tr><th>Email:</th><td>{{account.email}}</td></tr>
@@ -31,8 +45,6 @@
 				<tr><th>Age:</th><td>{{account.age}}</td></tr>
 			</table>
 		</div>
+
 	</div>
-	<p>{{ album.name }}</p>
-	<p>{{ album.release }}</p>
-	<!-- <button class="btn btn-success"><a href="#">ADD ALBUM</a></button> -->
 {% endblock %}
