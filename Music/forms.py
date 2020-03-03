@@ -22,3 +22,8 @@ class AddAlbum(forms.Form):
     albumName = forms.CharField(label="Album Name:", max_length=100)
     releaseYear = forms.DateField(label="Release Year:")
     albumPicture = forms.FileField()
+
+class AddArtist(forms.Form):
+    artistName = forms.CharField(label="Artist Name:", max_length=100)
+    artistDescrip = forms.CharField(label="Artist Description:", max_length=100)
+    artistPicture = forms.FileField()
