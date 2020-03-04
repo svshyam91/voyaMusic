@@ -25,9 +25,9 @@ class Tracks(models.Model):
     album_id = models.ForeignKey('Album', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     play_time = models.DurationField()
-    lyric = models.FilePathField(path="/home/svshyam97/")
-    picture = models.CharField(max_length=500, default="Music/images/")
-    file_path = models.CharField(max_length=500)
+    lyric = models.FileField(upload_to="songs/lyrics/")
+    picture = models.FileField(upload_to="songs/images/")
+    file_path = models.FileField(upload_to="songs/tracks/")
     is_favourite = models.BooleanField(default="False")
 
     def __str__(self):

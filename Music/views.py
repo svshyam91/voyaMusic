@@ -5,7 +5,7 @@ from django.http import Http404
 from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
-from .forms import Account, Login, AddAlbum, AddArtist
+from .forms import Account, Login, AddAlbum, AddArtist, AddSong
 #from django.template import loader
 
 
@@ -129,7 +129,7 @@ def logIn(request):
                 return HttpResponseRedirect(reverse("Music:index"))
             else:
                 return render(request, "Music/logIn.html", {
-                    "loginForm": loginForm, "error_message":"Invalid Login"})
+                    "loginForm": loginForm, "error_message": "Invalid Login"})
     else:
         # Unbound form
         loginForm = Login()
@@ -144,6 +144,11 @@ def logOut(request):
 
 # /music/profile
 def profile(request):
+    """ This view handles multiple forms in a way that first it checks 
+        request.method == "POST" and only if its true then it handles forms.
+        Next, it checks form IS VALID OR NOT. UNBOUND FORM WILL NOT BE VALID.
+        So, it'll validate only one form which return True for is_valid()."""
+
     if request.user.is_authenticated:
 
         # For showing user profile
@@ -156,6 +161,8 @@ def profile(request):
         if request.method == "POST":
             albumForm = AddAlbum(request.POST, request.FILES)      # Bound Form
             if albumForm.is_valid():
+                """ If artistForm is not valid then it will check next form"""
+                
                 artistId = request.POST.get("artistId")
                 albumName = albumForm.cleaned_data["albumName"]
                 releaseYear = albumForm.cleaned_data["releaseYear"]
@@ -164,13 +171,13 @@ def profile(request):
                 # Storing album in database
                 artist = Artist.objects.get(id=artistId)
                 album = Album(artist_id=artist,
-                    name=albumName, release_date=releaseYear, 
-                    albumImage=albumImage)
+                              name=albumName, release_date=releaseYear,
+                              albumImage=albumImage)
                 album.save()
 
                 return render(request, "Music/profile.html", {
                     "username": request.user.get_username(),
-                    "account": account })
+                    "account": account})
         else:
             # Unbound Form
             albumForm = AddAlbum()
@@ -178,32 +185,60 @@ def profile(request):
 
         # Adding Artist
         if request.method == "POST":
-            artistForm = AddArtist(request.POST, request.FILES)     # Bound Form
+            """ If artistForm is not valid then it will check next form"""
+
+            artistForm = AddArtist(
+                request.POST, request.FILES)     # Bound Form
             if artistForm.is_valid():
                 artistName = artistForm.cleaned_data["artistName"]
                 artistDescrip = artistForm.cleaned_data["artistDescrip"]
                 artistPicture = request.FILES["artistPicture"]
 
                 # Storing artist in Database
-                newArtist = Artist(name=artistName, 
-                    description=artistDescrip, picture=artistPicture)
+                newArtist = Artist(name=artistName,
+                                   description=artistDescrip, picture=artistPicture)
                 newArtist.save()
-
                 return render(request, "Music/profile.html", {
                     "username": request.user.get_username(),
                     "account": account,
-                    })
+                })
         else:
             artistForm = AddArtist()        # Unbound Form
-
         # End of adding Artist
 
+        # Add Song
+        if request.method == "POST":
+            songForm = AddSong(request.POST, request.FILES)
+            if songForm.is_valid():
+                """ If albumForm is not valid then it'll check next form"""
+
+                albumId = songForm.cleaned_data["albumId"]
+                songName = songForm.cleaned_data["songName"]
+                playTime = songForm.cleaned_data["playTime"]
+                releaseDate = songForm.cleaned_data["releaseDate"]
+                lyricsFile = request.FILES["lyricsFile"]
+                songImage = request.FILES["songImage"]
+                songFile = request.FILES["songFile"]
+
+                # Storing song in Database
+                album = Album.objects.get(id=albumId)    # Get album object associated with song
+                song = Tracks(album_id=album,
+                              name=songName, play_time=playTime, lyric=lyricsFile, 
+                              picture=songImage, file_path=songFile, is_favourite="False"
+                              )
+                song.save()
+                return HttpResponse("You have successfully uploaded song.")
+        else:
+            songForm = AddSong()
+        # End of SongForm handling
 
         return render(request, "Music/profile.html", {
-            "username": request.user.get_username(), 
-            "albumForm": albumForm, 
+            "username": request.user.get_username(),
+            "albumForm": albumForm,
             "artists": artists,
             "account": account,
-            "artistForm": artistForm,})
+            "artistForm": artistForm,
+            "songForm": songForm, })
     else:
+        # If the user is not logged in.
         return HttpResponseRedirect(reverse("Music:logIn"))

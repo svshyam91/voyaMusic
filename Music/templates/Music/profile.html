@@ -6,6 +6,7 @@
 	<div class="row">
 		<div class="col-sm-6">
 
+			
 			<!-- Add Album -->
 			<form method="post" action="{% url 'Music:profile'%}" enctype="multipart/form-data">
 				{% csrf_token %}
@@ -21,8 +22,9 @@
 					</tr>
 					{{ albumForm.as_table }}
 				</table>
-				<input type="submit" name="submit" value="ADD ALBUM" class="btn btn-success">
+				<input type="submit" name="addAlbum" value="ADD ALBUM" class="btn btn-success">
 			</form>
+
 
 			<!-- Add Artist -->
 			<form method="post" action="{% url 'Music:profile' %}" enctype="multipart/form-data">
@@ -30,10 +32,21 @@
 				<table class="table table-striped">
 					{{ artistForm.as_table }}
 				</table>
-				<input type="submit" name="submit" value="ADD ARTIST" class="btn btn-success">
+				<input type="submit" name="addArtist" value="ADD ARTIST" class="btn btn-success">
+			</form>
+
+
+			<!-- Add Song -->
+			<form method="post" action="{% url 'Music:profile' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<table class="table table-striped">
+					{{ songForm.as_table }}
+				</table>
+				<input type="submit" name="addSong" value="ADD SONG" class="btn btn-success">
 			</form>
 
 		</div>
+
 
 		<!-- Profile -->
 		<div class="col-sm-6">
