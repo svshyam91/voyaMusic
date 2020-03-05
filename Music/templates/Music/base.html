@@ -12,15 +12,34 @@
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="{% static 'Music/style.css' %}">
+		<style type="text/css">
+			#brand { 
+				font-size: 25px;
+				font-family: cursive;
+				color: #ff6666;
+			}
+			#brand i {
+				color: #ff0000;
+			}
+			#brand i:hover {
+				font-size: 30px;
+			}
+			.nav-link {
+				color: #ff0000;
+				font-weight: bold;
+				letter-spacing: 1.5px;
+				font-family: cursive;
+			}
+		</style>
 	</head>
 
 <body class="container-fluid">
 	{% block content%} {% endblock %}
-	<div class="">
-		<nav class="navbar-nav sticky-top navbar-expand-sm bg-dark">
+	<div class="navigation">
+		<nav class="navbar-nav sticky-top navbar-expand-sm p-2" style="background: #000000;">
 
 			<!-- Brand -->
-			<a class="navbar-brand" href="{% url 'Music:index' %}">VOYA MUSIC</a>
+			<a class="navbar-brand" href="{% url 'Music:index' %}" id="brand"><strong>V<i class="fas fa-play-circle"></i>YA MUSIC</strong></a>
 
 			<!-- Toggle button -->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-navigation="Toggle navigation">
@@ -45,8 +64,8 @@
 
 					<!-- Search Bar -->
 					<form method="get" action="#" class="form-inline">
-						<input type="text" name="q" class="form-control btn-sm mr-sm-2 border-primary" placeholder="Search">
-						<button type="submit" class="btn btn-sm btn-outline-primary" >Search</button> 
+						<input type="text" name="q" class="form-control btn-sm mr-sm-2 border-danger" placeholder="Search">
+						<button type="submit" class="btn btn-sm btn-outline-danger" >Search</button> 
 					</form>
 
 					{% if user.is_authenticated %}
@@ -66,18 +85,11 @@
 					{% endif %}
 				</ul>
 			</div>				
-		</nav>	
-<!-- 		<div class="row" id="form">
-			<div class="col-sm-3"></div>
-				<div class="col-sm mt-4 mb-4">
-				
-				</div>
-			<div class="col-sm-3"></div>
-		</div>
-		<div class="p-3 border-top border-1 border-dark"> -->
-			{% block body %}
-			{% endblock%}
-		</div>
+		</nav>
+	</div>
+	<div class="content">
+		{% block body %}
+		{% endblock%}
 	</div>
 </body>
 </html>

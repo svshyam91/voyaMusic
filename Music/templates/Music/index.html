@@ -33,9 +33,9 @@
 	<div class="row pt-4">
 		{% for album in albums %}
 			<div class="col-sm-3">
-				<a href="{% url 'Music:album_details' album.id %}">
+				<a href="{% url 'Music:album_details' album.id %}" style="text-decoration: none;">
 				<img src="{{ album.albumImage.url }}" class="img-fluid rounded" alt="{{ album.name }}"><br>
-				<p class="text-center text-dark">{{ album.name }}</p>
+				<p class="text-center font-weight-bold" style="color: #FFFFFF;">{{ album.name }}</p>
 				</a>
 			</div>
 		{% endfor %}
