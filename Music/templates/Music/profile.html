@@ -2,12 +2,17 @@
 {% load staticfiles %}
 
 {% block body %}
+	<style type="text/css">
+		i {
+			color: red;
+		}
+	</style>
 	<div class="jumbotron pb-2"> 
 		<h1><strong>Hello! {{ username }}</strong></h1> <h4>Your personalised page is here..</h4> 
 		<ul class="nav nav-pills nav-justified mt-4">
-			<li class="nav-item p-2"><button class="btn btn-secondary p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD ARTIST</i></button></li>
-			<li class="nav-item p-2"><button class="btn btn-secondary p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD ALBUM</i></button></li>
-			<li class="nav-item p-2"><button class="btn btn-secondary p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD SONG</i></button></li>
+			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD ARTIST</i></button></li>
+			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD ALBUM</i></button></li>
+			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD SONG</i></button></li>
 		</ul>
 		<!-- <button class="btn btn-primary right ">ADD ARTIST</button>
 		<button class="btn btn-primary right">ADD ALBUM</button>
@@ -32,7 +37,7 @@
 					</tr>
 					{{ albumForm.as_table }}
 				</table>
-				<input type="submit" name="addAlbum" value="ADD ALBUM" class="btn btn-outline-primary">
+				<input type="submit" name="addAlbum" value="ADD ALBUM" class="btn btn-outline-danger">
 			</form>
 
 
@@ -42,7 +47,7 @@
 				<table class="table table-striped">
 					{{ artistForm.as_table }}
 				</table>
-				<input type="submit" name="addArtist" value="ADD ARTIST" class="btn btn-outline-primary">
+				<input type="submit" name="addArtist" value="ADD ARTIST" class="btn btn-outline-danger">
 			</form>
 
 
@@ -52,7 +57,7 @@
 				<table class="table table-striped">
 					{{ songForm.as_table }}
 				</table>
-				<input type="submit" name="addSong" value="ADD SONG" class="btn btn-outline-primary">
+				<input type="submit" name="addSong" value="ADD SONG" class="btn btn-outline-danger">
 			</form>
 
 		</div>

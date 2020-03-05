@@ -3,17 +3,39 @@
 
 {% block content %}
 
+<style type="text/css">
+
+	/* For mobile devices */
+	.carousel-item img {
+		height: 200px;
+	}
+
+	/* For tablets */
+	@media only screen and (min-width: 600px) {
+		.carousel-item img {
+			height: 300px;
+		}
+	}
+
+	/* For laptops */
+	@media only screen and (min-width: 768px) {
+		.carousel-item img {
+			height: 400px;
+		}
+	}
+</style>
+
 <!-- Corousel -->
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="{% static 'Music/images/index_c1.jpg' %}" class="d-block w-100" alt="..." height="400px">
+				<img src="{% static 'Music/images/index_c1.jpg' %}" class="d-block w-100" alt="...">
 			</div>
 			<div class="carousel-item">
-	  			<img src="{% static 'Music/images/index_c2.jpg' %}" class="d-block w-100" alt="..." height="400px">
+	  			<img src="{% static 'Music/images/index_c2.jpg' %}" class="d-block w-100" alt="...">
 			</div>
 			<div class="carousel-item">
-	  			<img src="{% static 'Music/images/index_c3.jpg' %}" class="d-block w-100" alt="..." height="400px">
+	  			<img src="{% static 'Music/images/index_c3.jpg' %}" class="d-block w-100" alt="...">
 			</div>
 		</div>
 		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -34,7 +56,7 @@
 		{% for album in albums %}
 			<div class="col-sm-3">
 				<a href="{% url 'Music:album_details' album.id %}" style="text-decoration: none;">
-				<img src="{{ album.albumImage.url }}" class="img-fluid rounded" alt="{{ album.name }}"><br>
+				<img src="{{ album.albumImage.url }}" class="img-fluid rounded mx-auto d-block" alt="{{ album.name }}"><br>
 				<p class="text-center font-weight-bold" style="color: #FFFFFF;">{{ album.name }}</p>
 				</a>
 			</div>

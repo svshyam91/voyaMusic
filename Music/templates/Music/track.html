@@ -2,23 +2,28 @@
 {% load staticfiles %}
 
 {% block body %}
-	<div class="jumbotron">
-		<table class="table table-hover table-borderless">
-			<tr>
-				<th>ALL SONGS</th>
-			</tr>
+	<style type="text/css">
+		#player {
+			width: 100%;
+		}
+		.row:hover {
+			color: red;
+		}
+	</style>
+		<h3 class="mt-4 text-monospace">ALL SONGS</h3>
 			{% for track in tracks %}
-				<tr>
-					<td style="height: 150px; width: 150px;" class="responsive"><img src="{% static track.image_path %}" style="max-width: 100%; display: block;"></td>
-					<td>{{ track.name }}</td>
-					<td>{{ track.play_time }}</td>
-					<td>
-						<audio controls>
-							<source src="{% static track.file_path %}" type="audio/mpeg">
-						</audio>
-					</td>
-				</tr>
+			<div class="row my-4"> 
+				<div class="col-sm-1">
+					<!-- <img src="{% static track.image_path %}" style="max-width: 100%; display: block;"> -->
+					<i class="fas fa-headphones-alt fa-2x" id="music-icon"></i>
+				</div>
+				<div class="col-sm-3"><p class="py-2">{{ track.name }}</p></div>
+				<div class="col-sm-3"><p class="py-2">{{ track.play_time }}</p></div>
+				<div class="col-sm-5">
+					<audio controls id="player">
+						<source src="{{ track.file_path.url }}" type="audio/mpeg">
+					</audio>
+				</div>
+			</div>
 			{% endfor %}
-		</table>
-	</div>
 {% endblock %}
