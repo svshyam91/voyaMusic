@@ -3,5 +3,27 @@ body {
 	background-color: #b2b2b2;
 	font-family: Bookman;
 }
+/* For mobile devices */
+.carousel-item img {
+	height: 200px;
+}
+p {
+	color: red;
+}
+
+/* For tablets */
+@media only screen and (min-width: 600px) {
+	.carousel-item img {
+		height: 300px;
+	}
+
+}
+
+/* For laptops */
+@media only screen and (min-width: 768px) {
+	.carousel-item img {
+		height: 400px;
+	}
+}
 
 

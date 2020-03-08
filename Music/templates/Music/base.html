@@ -6,16 +6,23 @@
 		<title>VoyaMusic</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
     	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
 		<link rel="stylesheet" type="text/css" href="{% static 'Music/style.css' %}">
+
 		<style type="text/css">
 			#brand { 
 				font-size: 25px;
-				font-family: cursive;
+				font-family: ;
 				color: #ff0000;
 			}
 			#brand i {
@@ -27,73 +34,71 @@
 			.nav-link {
 				color: #ff0000;
 				font-weight: bold;
-				letter-spacing: 1.2px;
-				font-family: cursive;
+				/*letter-spacing: 1.2px;*/
+				font-family: ;
+			}
+			.container-fluid {
+				padding: 0px;
 			}
 		</style>
 	</head>
 
 <body class="container-fluid">
-	{% block content%} {% endblock %}
-	<div class="navigation">
-		<nav class="navbar-nav sticky-top navbar-expand-md p-2" style="background: #000000;">
+	<div>
+		{% block content%} {% endblock %}
+		<div class="navigation">
+			<nav class="navbar navbar-expand-lg sticky-top" style="background-color: #000000;">
 
-			<!-- Brand -->
-			<a class="navbar-brand" href="{% url 'Music:index' %}" id="brand"><strong>V<i class="fas fa-play-circle"></i>YA MUSIC</strong></a>
+				<!-- Brand -->
+				<a class="navbar-brand" href="{% url 'Music:index' %}" id="brand"><strong>V<i class="fas fa-play-circle"></i>YA MUSIC</strong></a>
 
-			<!-- Toggle button -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-navigation="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+				<!-- Toggle button -->
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<!-- <span class="navbar-toggler-icon"></span> -->
+				<!-- Used fontawesome icon, because navbar-toggler-icon supports only light and dark color with dark and light background resp. -->
+				<i class="fas fa-bars" style="color: #ff0000;"></i>
+				</button>
 
-			<!-- navbar links -->
-			<div class="collapse navbar-collapse" id="collapsibleNavbar">
-				<ul class="navbar-nav">
-
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'Music:artist' %}"><i class="fas fa-user"></i>&nbsp;ARTISTS</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'Music:album' %}"><i class="fas fa-compact-disc"></i>&nbsp;ALBUMS</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'Music:track' %}"><i class="fas fa-play"></i>&nbsp;SONGS</a>
-					</li>
-				</ul>
-				<ul class="navbar-nav ml-auto">
+				<!-- navbar links -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'Music:artist' %}"><i class="fas fa-user"></i>&nbsp;ARTISTS</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'Music:album' %}"><i class="fas fa-compact-disc"></i>&nbsp;ALBUMS</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'Music:track' %}"><i class="fas fa-play"></i>&nbsp;SONGS</a>
+						</li>
+					</ul>
 
 					<!-- Search Bar -->
-					<form method="get" action="#" class="form-inline">
-						<input type="text" name="q" class="form-control btn-sm mr-sm-2 border-danger" placeholder="Search">
-						<button type="submit" class="btn btn-sm btn-outline-danger" >Search</button> 
+					<form class="form-inline my-2 my-lg-0">
+						<div class="input-group">
+							<input class="form-control border-danger mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+							<div class="input-group-appended">
+								<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+							</div>
+						</div>
 					</form>
 
+					<!-- SignUp and Login Options -->
 					{% if user.is_authenticated %}
-						<li class="nav-item"> 
-							<a href="{% url 'Music:profile' %}" class="nav-link"><i class="fas fa-user-alt"></i>&nbsp;{{ user.username }}</a>
-						</li>
-						<li class="nav-item"> 
-							<a href="{% url 'Music:logOut' %}" class="nav-link"><i class="fas fa-power-off"></i>&nbsp;LOGOUT</a>
-						</li>
+						<a href="{% url 'Music:profile' %}" class="nav-link"><i class="fas fa-user-alt"></i>&nbsp;{{ user.username }}</a>
+						<a href="{% url 'Music:logOut' %}" class="nav-link"><i class="fas fa-power-off"></i>&nbsp;LOGOUT</a>
 					{% else %}
-						<li class="nav-item navbar-right"> 
-							<a href="{% url 'Music:register' %}" class="nav-link"><i class="fas fa-user-plus"></i>&nbsp;SIGN UP</a>
-						</li>
-						<li class="nav-item navbar-right"> 
-							<a href="{% url 'Music:logIn' %}" class="nav-link"><i class="fas fa-sign-in-alt"></i>&nbsp;SIGN IN</a>
-						</li>
+						<a href="{% url 'Music:register' %}" class="nav-link"><i class="fas fa-user-plus"></i>&nbsp;SIGN UP</a>
+						<a href="{% url 'Music:logIn' %}" class="nav-link"><i class="fas fa-sign-in-alt"></i>&nbsp;SIGN IN</a>
 					{% endif %}
-				</ul>
-			</div>				
-		</nav>
-	</div>
-	<div class="content">
-		{% block body %}
-		{% endblock%}
+				</div>				
+			</nav>
+		</div>
+
+		<div class="content" style="padding: 15px;">
+			{% block body %}
+			{% endblock%}
+		</div>
 	</div>
 </body>
 </html>
-
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-</button>

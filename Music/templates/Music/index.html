@@ -1,31 +1,10 @@
 {% extends 'Music/base.html' %}
-{% load staticfiles%}
+{% load staticfiles %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'Music/style.css' %}">
 {% block content %}
 
-<style type="text/css">
-
-	/* For mobile devices */
-	.carousel-item img {
-		height: 200px;
-	}
-
-	/* For tablets */
-	@media only screen and (min-width: 600px) {
-		.carousel-item img {
-			height: 300px;
-		}
-	}
-
-	/* For laptops */
-	@media only screen and (min-width: 768px) {
-		.carousel-item img {
-			height: 400px;
-		}
-	}
-</style>
-
-<!-- Corousel -->
+	<!-- Corousel -->
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">

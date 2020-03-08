@@ -146,7 +146,7 @@ def logOut(request):
 def profile(request):
     """ This view handles multiple forms in a way that first it checks 
         request.method == "POST" and only if its true then it handles forms.
-        Next, it checks form IS VALID OR NOT. UNBOUND FORM WILL NOT BE VALID.
+        Next, it checks whether form IS VALID OR NOT. UNBOUND FORM WILL NOT BE VALID.
         So, it'll validate only one form which return True for is_valid()."""
 
     if request.user.is_authenticated:
