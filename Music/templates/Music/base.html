@@ -40,17 +40,25 @@
 			.container-fluid {
 				padding: 0px;
 			}
+			.search {
+				border: 0px; 
+				border-bottom: 2px solid red; 
+				background-color: black; 
+				color: red;
+				display: inline;
+				padding: 2px;
+				border-radius: 7px;
+			}
+			.search:focus {
+				outline: none;
+			}
 		</style>
 	</head>
 
 <body class="container-fluid">
 	<div>
-		{% block content%} {% endblock %}
 		<div class="navigation">
 			<nav class="navbar navbar-expand-lg sticky-top" style="background-color: #000000;">
-
-				<!-- Brand -->
-				<a class="navbar-brand" href="{% url 'Music:index' %}" id="brand"><strong>V<i class="fas fa-play-circle"></i>YA MUSIC</strong></a>
 
 				<!-- Toggle button -->
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,6 +66,9 @@
 				<!-- Used fontawesome icon, because navbar-toggler-icon supports only light and dark color with dark and light background resp. -->
 				<i class="fas fa-bars" style="color: #ff0000;"></i>
 				</button>
+
+				<!-- Brand -->
+				<a class="navbar-brand" href="{% url 'Music:index' %}" id="brand"><strong>V<i class="fas fa-play-circle"></i>YA MUSIC</strong></a>
 
 				<!-- navbar links -->
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -74,13 +85,9 @@
 					</ul>
 
 					<!-- Search Bar -->
-					<form class="form-inline my-2 my-lg-0">
-						<div class="input-group">
-							<input class="form-control border-danger mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-							<div class="input-group-appended">
-								<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
-							</div>
-						</div>
+					<form method="get" action="#" class="form-inline my-2 my-lg-0" >
+						<input class="search" type="text" placeholder="Search..." aria-label="Search">
+						<button type="submit" style="background-color: black; border: 0px;  display: inline;"><i class="fas fa-search" style="color: red;"></i></button>
 					</form>
 
 					<!-- SignUp and Login Options -->
@@ -94,7 +101,7 @@
 				</div>				
 			</nav>
 		</div>
-
+		{% block content%} {% endblock %}
 		<div class="content" style="padding: 15px;">
 			{% block body %}
 			{% endblock%}

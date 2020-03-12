@@ -10,20 +10,20 @@
 			color: red;
 		}
 	</style>
-		<h3 class="mt-4 text-monospace">ALL SONGS</h3>
-			{% for track in tracks %}
-			<div class="row my-4"> 
-				<div class="col-sm-1">
-					<!-- <img src="{% static track.image_path %}" style="max-width: 100%; display: block;"> -->
-					<i class="fas fa-headphones-alt fa-2x" id="music-icon"></i>
-				</div>
-				<div class="col-sm-3"><p class="py-2">{{ track.name }}</p></div>
-				<div class="col-sm-3"><p class="py-2">{{ track.play_time }}</p></div>
-				<div class="col-sm-5">
-					<audio controls id="player">
-						<source src="{{ track.file_path.url }}" type="audio/mpeg">
-					</audio>
-				</div>
+	<h3 class="mt-4 text-monospace">ALL SONGS</h3>
+		{% for track in tracks %}
+		<div class="row my-4"> 
+			<div class="col-sm-1">
+				<!-- <img src="{% static track.image_path %}" style="max-width: 100%; display: block;"> -->
+				<i class="fas fa-headphones-alt fa-2x" id="music-icon"></i>
 			</div>
-			{% endfor %}
+			<div class="col-sm-3"><p class="py-2">{{ track.name }}</p></div>
+			<div class="col-sm-3"><p class="py-2">{{ track.play_time }}</p></div>
+			<div class="col-sm-5">
+				<audio controls id="player">
+					<source src="{{ track.file_path.url }}" type="audio/mpeg">
+				</audio>
+			</div>
+		</div>
+		{% endfor %}
 {% endblock %}

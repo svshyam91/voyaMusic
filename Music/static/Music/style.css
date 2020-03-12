@@ -3,6 +3,7 @@ body {
 	background-color: #b2b2b2;
 	font-family: Bookman;
 }
+
 /* For mobile devices */
 .carousel-item img {
 	height: 200px;
@@ -25,5 +26,3 @@ p {
 		height: 400px;
 	}
 }
-
-

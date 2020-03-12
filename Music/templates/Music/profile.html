@@ -7,12 +7,27 @@
 			color: red;
 		}
 	</style>
+	<script>
+		function addArtist() {
+			document.getElementById('addArtist').style.display='block';
+		}
+		function addAlbum() {
+			document.getElementById('addAlbum').style.display='block';
+		}
+		function addSong() {
+			document.getElementById('addSong').style.display='block';
+		}
+		function addSingles() {
+			document.getElementById('addSingles').style.display='block';
+		}
+	</script>
 	<div class="jumbotron pb-2"> 
 		<h1><strong>Hello! {{ username }}</strong></h1> <h4>Your personalised page is here..</h4> 
 		<ul class="nav nav-pills nav-justified mt-4">
-			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD ARTIST</i></button></li>
-			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD ALBUM</i></button></li>
-			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%"><i class="fas fa-plus">&nbsp;ADD SONG</i></button></li>
+			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%" onclick="addArtist()"><i class="fas fa-plus">&nbsp;ADD ARTIST</i></button></li>
+			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%" onclick="addAlbum()"><i class="fas fa-plus">&nbsp;ADD ALBUM</i></button></li>
+			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%" onclick="addSong()"><i class="fas fa-plus">&nbsp;ADD SONG</i></button></li>
+			<li class="nav-item p-2"><button class="btn btn-dark p-2" style="width: 100%" onclick="addSingles()"><i class="fas fa-plus">&nbsp;ADD SINGLES</i></button></li>
 		</ul>
 		<!-- <button class="btn btn-primary right ">ADD ARTIST</button>
 		<button class="btn btn-primary right">ADD ALBUM</button>
@@ -21,47 +36,63 @@
 	<div class="row">
 		<div class="col-sm-6">
 
+			<!-- Add Artist -->
+			<div id="addArtist" style="display: none;">
+				<form method="post" action="{% url 'Music:profile' %}" enctype="multipart/form-data">
+					<table class="table table-striped">
+						{% csrf_token %}
+						{{ artistForm.as_table }}
+					</table>
+					<input type="submit" name="addArtist" value="ADD ARTIST" class="btn btn-outline-danger">
+				</form>
+			</div>
 			
 			<!-- Add Album -->
-			<form method="post" action="{% url 'Music:profile'%}" enctype="multipart/form-data">
-				{% csrf_token %}
-				<table class="table table-striped">
-					<tr>
-						<th><label for="artist">Select Artist:</label></th>
-						<td><select name="artistId" id="artist">
-							<option value="">Select</option>
-							{% for artist in artists %}
-							<option value="{{artist.id}}">{{artist.name}}</option>
-							{% endfor %}
-						</select></td>
-					</tr>
-					{{ albumForm.as_table }}
-				</table>
-				<input type="submit" name="addAlbum" value="ADD ALBUM" class="btn btn-outline-danger">
-			</form>
-
-
-			<!-- Add Artist -->
-			<form method="post" action="{% url 'Music:profile' %}" enctype="multipart/form-data">
-				{% csrf_token %}
-				<table class="table table-striped">
-					{{ artistForm.as_table }}
-				</table>
-				<input type="submit" name="addArtist" value="ADD ARTIST" class="btn btn-outline-danger">
-			</form>
-
+			<div id="addAlbum" style="display: none;" class="mt-4">
+				<form method="post" action="{% url 'Music:profile'%}" enctype="multipart/form-data">
+					{% csrf_token %}
+					<table class="table table-striped">
+						<tr>
+							<th><label for="artist">Select Artist:</label></th>
+							<td><select name="artistId" id="artist">
+								<option value="">Select</option>
+								{% for artist in artists %}
+								<option value="{{artist.id}}">{{artist.name}}</option>
+								{% endfor %}
+							</select></td>
+						</tr>
+						{{ albumForm.as_table }}
+						<tr>
+							<th><label for="{{ albumForm.albumName.id_for_label }}">{{ albumForm.albumName.label }}</label></th>
+							<td>{{ albumForm.albumName.name }}</td>
+						</tr>
+					</table>
+					<input type="submit" name="addAlbum" value="ADD ALBUM" class="btn btn-outline-danger">
+				</form>
+			</div>
 
 			<!-- Add Song -->
-			<form method="post" action="{% url 'Music:profile' %}" enctype="multipart/form-data">
-				{% csrf_token %}
-				<table class="table table-striped">
-					{{ songForm.as_table }}
-				</table>
-				<input type="submit" name="addSong" value="ADD SONG" class="btn btn-outline-danger">
-			</form>
+			<div id="addSong" style="display: none;" class="mt-4">
+				<form method="post" action="{% url 'Music:profile' %}" enctype="multipart/form-data">
+					{% csrf_token %}
+					<table class="table table-striped">
+						{{ songForm.as_table }}
+					</table>
+					<input type="submit" name="addSong" value="ADD SONG" class="btn btn-outline-danger">
+				</form>
+			</div>
 
+			<!-- Add Singles -->
+			<div id="addSingles" style="display: none;">
+				<form method="post" action="{% url 'Music:profile' %} " enctype="multipart/form-data">
+					{% csrf_token %}
+					<table class="table table-striped">
+						{{ singlesForm.as_table }}
+					</table>
+					<input type="submit" name="addSingles" value="ADD SONG" class="btn btn-outline-danger">
+				</form>
+			</div>
 		</div>
-
 
 		<!-- Profile -->
 		<div class="col-sm-6">
@@ -73,6 +104,5 @@
 				<tr><th>Age:</th><td>{{account.age}}</td></tr>
 			</table>
 		</div>
-
 	</div>
 {% endblock %}
