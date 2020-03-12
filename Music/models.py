@@ -33,6 +33,15 @@ class Tracks(models.Model):
     def __str__(self):
         return self.name
 
+class Singles(models.Model):
+    song_name = models.CharField(max_length=200)
+    song_lyrics = models.FileField(upload_to="songs/lyrics/", null=True, blank=True)
+    song_image = models.FileField(upload_to="songs/images/", null=True, blank=True)
+    song_file_path = models.FileField(upload_to="songs/tracks/")
+    is_favourite = models.BooleanField(default="False")
+
+    def __str__(self):
+        return self.song_name
 
 class Register(models.Model):
     first_name = models.CharField(max_length=50)

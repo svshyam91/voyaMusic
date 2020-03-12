@@ -49,3 +49,10 @@ class AddSong(forms.Form):
     songFile = forms.FileField(label="Song File ")
 
 
+class AddSingles(forms.Form):
+    ''' This form is to add singles '''
+
+    song_name = forms.CharField(label="Song Name", max_length=200)
+    song_lyrics = forms.FileField(label="Lyrics File", required=False)
+    song_image = forms.FileField(label="Song Image File", required=False)
+    song_file_path = forms.FileField(label="Song File")

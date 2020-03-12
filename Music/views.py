@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Artist, Album, Tracks, Register
+from .models import Artist, Album, Tracks, Register, Singles
 from django.http import Http404
 from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
-from .forms import Account, Login, AddAlbum, AddArtist, AddSong
+from .forms import Account, Login, AddAlbum, AddArtist, AddSong, AddSingles
 #from django.template import loader
 
 
@@ -232,13 +232,32 @@ def profile(request):
             songForm = AddSong()
         # End of SongForm handling
 
+        # Add Singles
+        if request.method == "POST":
+            singlesForm = AddSingles(request.POST, request.FILES)
+            if singlesForm.is_valid():
+                songName = singlesForm.cleaned_data["song_name"]
+                songLyrics = singlesForm.cleaned_data["song_lyrics"]
+                songImage = singlesForm.cleaned_data["song_image"]
+                songFilePath = singlesForm.cleaned_data["song_file_path"]
+
+                # Stroing song in Database
+                newSong = Singles(song_name=songName, song_lyrics=songLyrics,
+                    song_image=songImage, song_file_path=songFilePath)
+                newSong.save()
+                return HttpResponse("You have successfully uploaded song.")
+        else:
+            singlesForm = AddSingles()
+
+
         return render(request, "Music/profile.html", {
             "username": request.user.get_username(),
             "albumForm": albumForm,
             "artists": artists,
             "account": account,
             "artistForm": artistForm,
-            "songForm": songForm, })
+            "songForm": songForm,
+            "singlesForm": singlesForm, })
     else:
         # If the user is not logged in.
         return HttpResponseRedirect(reverse("Music:logIn"))
